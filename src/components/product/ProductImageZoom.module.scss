@@ -1,0 +1,78 @@
+@use '@/styles/variables' as *;
+
+.container {
+  position: relative;
+  width: 100%;
+  background: var(--mui-palette-background-paper, #fff);
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.mainImage {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: transform $transition-slow;
+  display: block;
+
+  &.zoomed {
+    cursor: zoom-out;
+  }
+}
+
+.controls {
+  position: absolute;
+  bottom: $spacing-md;
+  right: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.zoomBtn {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+  backdrop-filter: blur(4px);
+  width: 36px !important;
+  height: 36px !important;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.7) !important;
+  }
+}
+
+.thumbnails {
+  display: flex;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+  overflow-x: auto;
+  padding-bottom: $spacing-xs;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--mui-palette-primary-main, #f2be8c);
+    border-radius: 2px;
+  }
+}
+
+.thumbnail {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+  transition: border-color $transition-fast;
+
+  &.active {
+    border-color: var(--mui-palette-primary-main, #f2be8c);
+  }
+
+  &:hover:not(.active) {
+    border-color: var(--mui-palette-primary-light, #f6d3ab);
+  }
+}

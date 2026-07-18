@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Keep in sync with src/lib/tokens.ts */
+@theme {
+  --color-surface-0: #121212;
+  --color-surface-1: #1E1E1E;
+  --color-surface-2: #2C2C2C;
+  --color-primary: #f2be8c;
+  --color-on-primary: #482904;
+  --color-primary-container: #d4a373;
+  --color-on-primary-container: #5b3912;
+  --color-secondary: #c9c8ae;
+  --color-on-secondary: #31311f;
+  --color-secondary-container: #484834;
+  --color-on-secondary-container: #b7b69d;
+  --color-on-surface: #eae1db;
+  --color-on-surface-variant: #d4c4b7;
+  --color-outline: #9c8e82;
+  --color-outline-variant: #50453b;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-coffee-bean: #3D2B1F;
+  --color-olive-drab: #6B705C;
+  --color-latte-white: #F4F1DE;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-display: var(--font-manrope), sans-serif;
+  --font-body: var(--font-work-sans), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --spacing-gutter-desktop: 24px;
+  --spacing-margin-desktop: 64px;
+  --spacing-gutter-mobile: 16px;
+  --spacing-margin-mobile: 20px;
 }

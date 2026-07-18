@@ -1,0 +1,39 @@
+@use '../../styles/variables' as *;
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  border-radius: $radius-lg;
+  border: 1px solid var(--mui-palette-divider, rgba(255, 255, 255, 0.15));
+  cursor: pointer;
+  transition: border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    border-color: var(--mui-palette-primary-main, #f2be8c);
+  }
+}
+
+.cardActive {
+  border-color: var(--mui-palette-primary-main, #f2be8c);
+  background-color: color-mix(in srgb, var(--mui-palette-primary-main, #f2be8c) 8%, transparent);
+}
+
+.radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--mui-palette-outline, #9c8e82);
+  flex-shrink: 0;
+}
+
+.radioActive {
+  border-color: var(--mui-palette-primary-main, #f2be8c);
+  background: radial-gradient(
+    circle,
+    var(--mui-palette-primary-main, #f2be8c) 0%,
+    var(--mui-palette-primary-main, #f2be8c) 45%,
+    transparent 50%
+  );
+}

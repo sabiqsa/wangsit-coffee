@@ -1,0 +1,27 @@
+@use '../../styles/variables' as *;
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  color: var(--mui-palette-text-secondary);
+}
+
+.stepActive {
+  color: var(--mui-palette-primary-main, #f2be8c);
+}
+
+.stepLabel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
