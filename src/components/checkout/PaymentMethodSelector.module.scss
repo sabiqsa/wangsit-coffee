@@ -5,35 +5,35 @@
   align-items: center;
   gap: $spacing-md;
   padding: $spacing-md;
-  border-radius: $radius-lg;
-  border: 1px solid var(--mui-palette-divider, rgba(255, 255, 255, 0.15));
+  border-radius: $radius-surface;
+  border: 1px solid var(--mui-palette-divider);
   cursor: pointer;
   transition: border-color $transition-fast, background-color $transition-fast;
 
   &:hover {
-    border-color: var(--mui-palette-primary-main, #f2be8c);
+    border-color: var(--mui-palette-primary-main);
   }
 }
 
 .cardActive {
-  border-color: var(--mui-palette-primary-main, #f2be8c);
-  background-color: color-mix(in srgb, var(--mui-palette-primary-main, #f2be8c) 8%, transparent);
+  border-color: var(--mui-palette-primary-main);
+  background-color: color-mix(in srgb, var(--mui-palette-primary-main) 8%, transparent);
 }
 
 .radio {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid var(--mui-palette-outline, #9c8e82);
+  border: 2px solid var(--mui-palette-text-secondary);
   flex-shrink: 0;
 }
 
 .radioActive {
-  border-color: var(--mui-palette-primary-main, #f2be8c);
+  border-color: var(--mui-palette-primary-main);
   background: radial-gradient(
     circle,
-    var(--mui-palette-primary-main, #f2be8c) 0%,
-    var(--mui-palette-primary-main, #f2be8c) 45%,
+    var(--mui-palette-primary-main) 0%,
+    var(--mui-palette-primary-main) 45%,
     transparent 50%
   );
 }

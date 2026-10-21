@@ -1,21 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Container, Typography, InputBase, IconButton, Divider } from '@mui/material';
-import { Send } from '@mui/icons-material';
+import { Box, Container, Typography, InputBase, Button } from '@mui/material';
 import Link from 'next/link';
 
 const MENU_LINKS = [
-  { href: '/products', label: 'Semua Produk' },
-  { href: '/products?category=biji-bubuk-kopi', label: 'Biji & Bubuk Kopi' },
-  { href: '/products?category=kopi-botolan', label: 'Kopi Botolan' },
+  { href: '/products', label: 'Semua produk' },
+  { href: '/products?category=biji-bubuk-kopi', label: 'Biji & bubuk kopi' },
+  { href: '/products?category=kopi-botolan', label: 'Kopi botolan' },
 ];
 
-const INFO_LINKS = [
-  { href: '#', label: 'Tentang Kami' },
-  { href: '#', label: 'Kebijakan Privasi' },
-  { href: '#', label: 'Syarat & Ketentuan' },
-];
+// Static pages not built yet: rendered as plain text, not dead links.
+const INFO_LINKS = ['Tentang kami', 'Kebijakan privasi', 'Syarat & ketentuan'];
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -29,91 +25,90 @@ export default function Footer() {
   };
 
   return (
-    <Box
-      component="footer"
-      sx={{ bgcolor: 'background.default', mt: 'auto', borderTop: 1, borderColor: 'divider' }}
-    >
-      <Container maxWidth="lg" className="py-10 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
-          <div className="md:col-span-2">
+    <Box component="footer" sx={{ mt: 'auto', borderTop: 1, borderColor: 'divider' }}>
+      <Container maxWidth="lg" className="pt-14 pb-10 md:pt-20 md:pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          <div className="md:col-span-5">
             <Typography
-              variant="h6"
-              sx={{ fontFamily: 'var(--font-display)', fontWeight: 700, mb: 1.5 }}
+              component="p"
+              sx={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: { xs: '2rem', md: '2.5rem' }, letterSpacing: '-0.035em', lineHeight: 1 }}
             >
-              Wangsit<span style={{ color: 'var(--mui-palette-primary-main)' }}>Coffee</span>
+              Wangsit<Box component="span" sx={{ color: 'primary.main' }}>Coffee</Box>
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360 }}>
-              Meracik ritual kopi lewat sourcing yang teliti dan roasting artisanal —
-              dari kebun Nusantara langsung ke cangkir kamu.
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 2, maxWidth: 340 }}>
+              Kopi dari kebun Nusantara, dipanggang per batch kecil dan dikirim ke cangkir kamu.
             </Typography>
           </div>
 
-          <div>
-            <Typography
-              variant="overline"
-              sx={{ display: 'block', color: 'text.secondary', mb: 1.5 }}
-            >
-              Menu
-            </Typography>
-            {MENU_LINKS.map((item) => (
-              <Link key={item.label} href={item.href} className="block mb-2">
-                <Typography variant="body2" color="text.secondary" sx={{ '&:hover': { color: 'primary.main' } }}>
-                  {item.label}
-                </Typography>
-              </Link>
-            ))}
-          </div>
+          <nav aria-label="Menu footer" className="md:col-span-3">
+            <Typography variant="subtitle2" sx={{ mb: 2 }}>Belanja</Typography>
+            <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
+              {MENU_LINKS.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href}>
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ transition: 'color 160ms', '&:hover': { color: 'text.primary' } }}
+                    >
+                      {item.label}
+                    </Typography>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          <div>
-            <Typography
-              variant="overline"
-              sx={{ display: 'block', color: 'text.secondary', mb: 1.5 }}
-            >
-              Newsletter
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-              Info roast baru & promo langsung ke email kamu.
+          <div className="md:col-span-4">
+            <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Kabar roast baru</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Satu email tiap ada batch baru. Tidak lebih.
             </Typography>
             {subscribed ? (
-              <Typography variant="body2" sx={{ color: 'primary.main' }}>
-                Terima kasih sudah berlangganan!
+              <Typography variant="body2" role="status" sx={{ color: 'primary.main', fontWeight: 500 }}>
+                Terima kasih. Kami kabari saat batch berikutnya siap.
               </Typography>
             ) : (
-              <Box component="form" onSubmit={handleSubscribe} className="flex items-center gap-1">
-                <InputBase
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email kamu"
-                  type="email"
-                  sx={{
-                    flex: 1,
-                    px: 1.5,
-                    py: 0.5,
-                    borderRadius: 1,
-                    bgcolor: 'background.paper',
-                    border: 1,
-                    borderColor: 'divider',
-                    fontSize: '0.875rem',
-                  }}
-                />
-                <IconButton type="submit" size="small" sx={{ bgcolor: 'primary.main', color: 'var(--mui-palette-primary-contrastText)', '&:hover': { bgcolor: 'primary.main', opacity: 0.9 } }}>
-                  <Send fontSize="small" />
-                </IconButton>
+              <Box component="form" onSubmit={handleSubscribe}>
+                <label htmlFor="newsletter-email" className="visually-hidden">Email</label>
+                <Box className="flex items-stretch gap-2">
+                  <InputBase
+                    id="newsletter-email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="nama@email.com"
+                    type="email"
+                    required
+                    sx={{
+                      flex: 1,
+                      px: 1.75,
+                      height: 44,
+                      borderRadius: 1,
+                      bgcolor: 'background.paper',
+                      border: 1,
+                      borderColor: 'divider',
+                      fontSize: '0.875rem',
+                      '&.Mui-focused': { borderColor: 'primary.main' },
+                    }}
+                  />
+                  <Button type="submit" variant="contained" sx={{ height: 44 }}>
+                    Daftar
+                  </Button>
+                </Box>
               </Box>
             )}
           </div>
         </div>
 
-        <Divider sx={{ my: 4 }} />
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <Typography variant="body2" color="text.secondary">
-            © {new Date().getFullYear()} WangsitCoffee. Meticulously Sourced.
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-14 pt-6 border-t" style={{ borderColor: 'var(--mui-palette-divider)' }}>
+          <Typography variant="caption" color="text.secondary">
+            © {new Date().getFullYear()} WangsitCoffee
           </Typography>
-          <div className="flex gap-4">
-            {INFO_LINKS.map((item) => (
-              <Typography key={item.label} variant="body2" color="text.secondary">
-                {item.label}
+          <div className="flex flex-wrap gap-x-5 gap-y-1">
+            {INFO_LINKS.map((label) => (
+              <Typography key={label} variant="caption" color="text.secondary">
+                {label}
               </Typography>
             ))}
           </div>

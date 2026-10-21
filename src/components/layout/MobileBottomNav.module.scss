@@ -6,15 +6,16 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 40;
-  align-items: center;
-  justify-content: space-around;
-  padding: $spacing-sm 0;
-  background: var(--mui-palette-background-paper, #1e1e1e);
-  border-top: 1px solid var(--mui-palette-divider, rgba(255, 255, 255, 0.1));
+  z-index: $z-bottom-nav;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 6px $spacing-sm calc(6px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--mui-palette-background-paper) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(16px);
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  border-top: 1px solid var(--mui-palette-divider);
 
   @media (max-width: #{$bp-md - 1px}) {
-    display: flex;
+    display: grid;
   }
 }
 
@@ -22,22 +23,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--mui-palette-text-secondary, #aaaaaa);
-  padding: $spacing-xs $spacing-sm;
-  transition: color $transition-fast;
+  min-height: 48px;
+  border-radius: $radius-control;
+  color: var(--mui-palette-text-secondary);
+  transition: color $transition-fast, background-color $transition-fast, transform $transition-fast;
+
+  &:active {
+    transform: scale(0.96);
+  }
 
   &.active {
-    color: var(--mui-palette-primary-main, #f2be8c);
+    color: var(--mui-palette-text-primary);
+    background-color: color-mix(in srgb, var(--mui-palette-primary-main) 14%, transparent);
   }
 }
 
 .label {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font-size: 0.6875rem;
+  font-weight: 500;
 }

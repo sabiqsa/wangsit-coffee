@@ -3,8 +3,8 @@
 .container {
   position: relative;
   width: 100%;
-  background: var(--mui-palette-background-paper, #fff);
-  border-radius: $radius-lg;
+  background: var(--mui-palette-background-paper);
+  border-radius: $radius-surface;
   overflow: hidden;
 }
 
@@ -31,14 +31,14 @@
 }
 
 .zoomBtn {
-  background: rgba(0, 0, 0, 0.5) !important;
-  color: white !important;
+  background: color-mix(in srgb, var(--mui-palette-background-default) 72%, transparent) !important;
+  color: var(--mui-palette-text-primary) !important;
   backdrop-filter: blur(4px);
   width: 36px !important;
   height: 36px !important;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.7) !important;
+    background: var(--mui-palette-background-default) !important;
   }
 }
 
@@ -53,7 +53,7 @@
     height: 4px;
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--mui-palette-primary-main, #f2be8c);
+    background: var(--mui-palette-primary-main);
     border-radius: 2px;
   }
 }
@@ -62,17 +62,17 @@
   width: 72px;
   height: 72px;
   object-fit: cover;
-  border-radius: $radius-sm;
+  border-radius: $radius-control;
   cursor: pointer;
   border: 2px solid transparent;
   flex-shrink: 0;
   transition: border-color $transition-fast;
 
   &.active {
-    border-color: var(--mui-palette-primary-main, #f2be8c);
+    border-color: var(--mui-palette-primary-main);
   }
 
   &:hover:not(.active) {
-    border-color: var(--mui-palette-primary-light, #f6d3ab);
+    border-color: var(--mui-palette-text-secondary);
   }
 }

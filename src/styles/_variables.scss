@@ -1,7 +1,7 @@
-// Colors live in src/lib/tokens.ts (MUI theme) / src/app/globals.css (Tailwind
-// @theme) now — this file only keeps numeric tokens SCSS modules need directly.
-// Prefer var(--mui-palette-*) for color in .module.scss files (see
-// ProductImageZoom.module.scss for the pattern).
+// Colors live in src/lib/tokens.ts (MUI theme). In .module.scss files use
+// var(--mui-palette-*) so light and dark mode both work (see
+// ProductImageZoom.module.scss for the pattern). This file only keeps the
+// numeric tokens SCSS modules need directly.
 
 // Spacing
 $spacing-xs: 4px;
@@ -11,20 +11,23 @@ $spacing-lg: 24px;
 $spacing-xl: 32px;
 $spacing-xxl: 48px;
 
-// Breakpoints
+// Breakpoints (MUI defaults)
 $bp-xs: 0px;
 $bp-sm: 600px;
 $bp-md: 900px;
 $bp-lg: 1200px;
 $bp-xl: 1536px;
 
-// Border radius
-$radius-sm: 2px;
-$radius-md: 4px;
-$radius-lg: 8px;
-$radius-xl: 12px;
+// Shape rule (mirrors radius in tokens.ts): controls vs surfaces
+$radius-control: 10px;
+$radius-surface: 16px;
 
-// Transitions
-$transition-fast: 0.15s ease;
-$transition-normal: 0.25s ease;
-$transition-slow: 0.4s ease;
+// Motion
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$transition-fast: 160ms $ease-out;
+$transition-normal: 280ms $ease-out;
+$transition-slow: 480ms $ease-out;
+
+// Z-index scale
+$z-sticky: 100;
+$z-bottom-nav: 90;

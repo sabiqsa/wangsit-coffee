@@ -1,36 +1,14 @@
 @import "tailwindcss";
 
-/* Keep in sync with src/lib/tokens.ts */
+/* Fonts and shape mirror src/lib/tokens.ts. Colors are NOT duplicated here:
+   use var(--mui-palette-*) so both light and dark mode stay in sync. */
 @theme {
-  --color-surface-0: #121212;
-  --color-surface-1: #1E1E1E;
-  --color-surface-2: #2C2C2C;
-  --color-primary: #f2be8c;
-  --color-on-primary: #482904;
-  --color-primary-container: #d4a373;
-  --color-on-primary-container: #5b3912;
-  --color-secondary: #c9c8ae;
-  --color-on-secondary: #31311f;
-  --color-secondary-container: #484834;
-  --color-on-secondary-container: #b7b69d;
-  --color-on-surface: #eae1db;
-  --color-on-surface-variant: #d4c4b7;
-  --color-outline: #9c8e82;
-  --color-outline-variant: #50453b;
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
-  --color-coffee-bean: #3D2B1F;
-  --color-olive-drab: #6B705C;
-  --color-latte-white: #F4F1DE;
+  --font-display: var(--font-bricolage), sans-serif;
+  --font-body: var(--font-geist), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 
-  --font-display: var(--font-manrope), sans-serif;
-  --font-body: var(--font-work-sans), sans-serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
-
-  --radius-sm: 0.125rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
+  --radius-control: 10px;
+  --radius-surface: 16px;
 
   --spacing-gutter-desktop: 24px;
   --spacing-margin-desktop: 64px;

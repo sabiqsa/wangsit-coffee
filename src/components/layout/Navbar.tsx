@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import {
   AppBar, Toolbar, IconButton, Badge, Avatar, Menu, MenuItem,
   Divider, InputBase, Box, Tooltip,
 } from '@mui/material';
 import {
-  ShoppingCart, Search, AccountCircle, AdminPanelSettings, Logout, Person,
+  ShoppingBagOutlined, Search, PersonOutlined, AdminPanelSettings, Logout, Person,
 } from '@mui/icons-material';
 import classNames from 'classnames';
 import { useAppSelector } from '@/hooks/useAppDispatch';
@@ -25,7 +26,6 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { user, profile } = useAuth();
-  const mode = useAppSelector((s) => s.theme.mode);
   const cartCount = useAppSelector((s) => s.cart.items.reduce((acc, i) => acc + i.quantity, 0));
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -45,52 +45,71 @@ export default function Navbar() {
     }
   };
 
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+
   return (
     <AppBar position="sticky" className={styles.navbar} elevation={0}>
-      <Toolbar className="gap-2 md:gap-4">
-        <Box className={styles.logo} onClick={() => router.push('/')}>
-          Wangsit<span className={classNames(mode === 'light' && styles.logoAccentLight)}>Coffee</span>
-        </Box>
+      <Toolbar className={styles.toolbar} disableGutters>
+        <Link href="/" className={styles.logo} aria-label="WangsitCoffee, ke beranda">
+          Wangsit<span>Coffee</span>
+        </Link>
 
-        <Box component="nav" className="hidden md:flex items-center gap-1 ml-2">
+        <Box component="nav" aria-label="Navigasi utama" className="hidden md:flex items-center gap-1">
           {NAV_LINKS.map((link) => (
-            <Box
+            <Link
               key={link.href}
-              onClick={() => router.push(link.href)}
-              className={classNames(styles.navLink, pathname === link.href && styles.navLinkActive)}
+              href={link.href}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              className={classNames(styles.navLink, isActive(link.href) && styles.navLinkActive)}
             >
               {link.label}
-            </Box>
+            </Link>
           ))}
         </Box>
 
-        <Box className={styles.searchBar} component="form" onSubmit={handleSearch}>
+        <Box className={styles.searchBar} component="form" role="search" onSubmit={handleSearch}>
           <InputBase
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Cari produk kopi..."
-            startAdornment={<Search sx={{ mr: 1, color: 'text.secondary', fontSize: 20 }} />}
+            placeholder="Cari kopi, misal Gayo"
+            inputProps={{ 'aria-label': 'Cari produk' }}
+            startAdornment={<Search sx={{ mr: 1, color: 'text.secondary', fontSize: 18 }} />}
             className={styles.searchInput}
           />
         </Box>
-
-        <Box sx={{ flex: 1 }} />
 
         <Box className={styles.navActions}>
           <ThemeToggle />
 
           <Tooltip title="Keranjang">
-            <IconButton sx={{ color: 'text.primary' }} onClick={() => router.push('/cart')}>
+            <IconButton component={Link} href="/cart" aria-label={`Keranjang, ${cartCount} item`} sx={{ color: 'text.primary' }}>
               <Badge badgeContent={cartCount} color="primary">
-                <ShoppingCart fontSize="small" />
+                <ShoppingBagOutlined fontSize="small" />
               </Badge>
             </IconButton>
           </Tooltip>
 
           {user ? (
             <>
-              <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} size="small">
-                <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main', color: 'var(--mui-palette-primary-contrastText)', fontSize: '0.875rem' }}>
+              <IconButton
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+                size="small"
+                aria-label="Menu akun"
+                aria-haspopup="menu"
+                aria-expanded={Boolean(anchorEl)}
+              >
+                <Avatar
+                  variant="rounded"
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 1,
+                    bgcolor: 'primary.main',
+                    color: 'primary.contrastText',
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                  }}
+                >
                   {profile?.name?.[0]?.toUpperCase()}
                 </Avatar>
               </IconButton>
@@ -100,34 +119,32 @@ export default function Navbar() {
                 onClose={() => setAnchorEl(null)}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                slotProps={{ paper: { sx: { mt: 1, minWidth: 220 } } }}
               >
-                <MenuItem disabled sx={{ opacity: 1 }}>
-                  <Box>
-                    <Box sx={{ fontWeight: 600, fontSize: '0.875rem' }}>{profile?.name}</Box>
-                    <Box sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>{user.email}</Box>
-                  </Box>
-                </MenuItem>
+                <Box sx={{ px: 2, py: 1.25 }}>
+                  <Box sx={{ fontWeight: 600, fontSize: '0.875rem' }}>{profile?.name}</Box>
+                  <Box sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>{user.email}</Box>
+                </Box>
                 <Divider />
                 <MenuItem onClick={() => { router.push('/profile'); setAnchorEl(null); }}>
-                  <Person fontSize="small" sx={{ mr: 1 }} /> Profil Saya
+                  <Person fontSize="small" sx={{ mr: 1.5, color: 'text.secondary' }} /> Profil saya
                 </MenuItem>
                 {profile?.role === 'admin' && (
                   <MenuItem onClick={() => { router.push('/admin'); setAnchorEl(null); }}>
-                    <AdminPanelSettings fontSize="small" sx={{ mr: 1 }} /> Admin Dashboard
+                    <AdminPanelSettings fontSize="small" sx={{ mr: 1.5, color: 'text.secondary' }} /> Admin dashboard
                   </MenuItem>
                 )}
                 <Divider />
                 <MenuItem onClick={handleSignOut}>
-                  <Logout fontSize="small" sx={{ mr: 1 }} /> Keluar
+                  <Logout fontSize="small" sx={{ mr: 1.5, color: 'text.secondary' }} /> Keluar
                 </MenuItem>
               </Menu>
             </>
           ) : (
-            <Tooltip title="Login">
-              <IconButton sx={{ color: 'text.primary' }} onClick={() => router.push('/auth/login')}>
-                <AccountCircle fontSize="small" />
-              </IconButton>
-            </Tooltip>
+            <Link href="/auth/login" className={styles.loginLink}>
+              <PersonOutlined sx={{ fontSize: 18 }} />
+              <span>Masuk</span>
+            </Link>
           )}
         </Box>
       </Toolbar>

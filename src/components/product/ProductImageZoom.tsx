@@ -98,10 +98,10 @@ export default function ProductImageZoom({ images, alt }: Props) {
           draggable={false}
         />
         <div className={styles.controls}>
-          <IconButton className={styles.zoomBtn} onClick={zoomIn} disabled={scale >= MAX_ZOOM} size="small">
+          <IconButton className={styles.zoomBtn} onClick={zoomIn} disabled={scale >= MAX_ZOOM} size="small" aria-label="Perbesar gambar">
             <ZoomIn fontSize="small" />
           </IconButton>
-          <IconButton className={styles.zoomBtn} onClick={zoomOut} disabled={scale <= MIN_ZOOM} size="small">
+          <IconButton className={styles.zoomBtn} onClick={zoomOut} disabled={scale <= MIN_ZOOM} size="small" aria-label="Perkecil gambar">
             <ZoomOut fontSize="small" />
           </IconButton>
         </div>

@@ -11,12 +11,17 @@ interface EmptyStateProps {
 export default function EmptyState({ icon: Icon, title, description, action }: EmptyStateProps) {
   return (
     <Box className="flex flex-col items-center text-center py-16 px-4">
-      <Icon sx={{ fontSize: 56, color: 'text.secondary', mb: 2, opacity: 0.6 }} />
-      <Typography variant="h6" sx={{ fontWeight: 600, mb: description ? 0.5 : 2 }}>
+      <Box
+        className="flex items-center justify-center mb-5"
+        sx={{ width: 64, height: 64, borderRadius: '16px', bgcolor: 'background.paper', border: 1, borderColor: 'divider' }}
+      >
+        <Icon sx={{ fontSize: 28, color: 'primary.main' }} />
+      </Box>
+      <Typography variant="h5" component="h2" sx={{ mb: description ? 1 : 3 }}>
         {title}
       </Typography>
       {description && (
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2, maxWidth: 360 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, maxWidth: 360 }}>
           {description}
         </Typography>
       )}

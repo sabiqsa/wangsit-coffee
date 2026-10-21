@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   Container, Typography, Box, Button, Rating, Skeleton, Alert,
-  Breadcrumbs, Link as MuiLink, Divider, TextField,
+  Breadcrumbs, Link as MuiLink, TextField,
 } from '@mui/material';
 import { ShoppingCart, ArrowBack, SearchOff } from '@mui/icons-material';
 import ProductImageZoom from '@/components/product/ProductImageZoom';
@@ -80,7 +80,7 @@ export default function ProductDetailPage() {
           title="Produk tidak ditemukan"
           action={
             <Button startIcon={<ArrowBack />} onClick={() => router.push('/products')} variant="outlined">
-              Kembali ke Katalog
+              Kembali ke katalog
             </Button>
           }
         />
@@ -92,7 +92,7 @@ export default function ProductDetailPage() {
 
   return (
     <Container maxWidth="lg" className="py-8 md:py-12">
-      <Breadcrumbs sx={{ mb: 3 }}>
+      <Breadcrumbs sx={{ mb: { xs: 3, md: 5 }, fontSize: '0.875rem' }}>
         <MuiLink component="button" onClick={() => router.push('/')} underline="hover" color="inherit">
           Beranda
         </MuiLink>
@@ -112,33 +112,30 @@ export default function ProductDetailPage() {
         <Typography color="text.primary">{product.name}</Typography>
       </Breadcrumbs>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
         <ProductImageZoom images={product.images} alt={product.name} />
 
         <div>
           {category && (
-            <Typography variant="overline" sx={{ color: 'primary.main', display: 'block', mb: 0.5 }}>
+            <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 600, mb: 1 }}>
               {category.name}
             </Typography>
           )}
 
-          <Typography
-            variant="h4"
-            sx={{ fontFamily: 'var(--font-display)', fontWeight: 700, mb: 1 }}
-          >
+          <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '2rem', md: '2.75rem' }, mb: 1.5 }}>
             {product.name}
           </Typography>
 
-          <Box className="flex items-center gap-1 mb-2">
+          <Box className="flex items-center gap-1.5 mb-5">
             <Rating value={product.rating} precision={0.5} readOnly size="small" />
-            <Typography variant="body2" color="text.secondary">
-              {product.rating.toFixed(1)} ({product.sold} terjual)
+            <Typography variant="body2" color="text.secondary" className="tabular">
+              {product.rating.toFixed(1)}, {product.sold} terjual
             </Typography>
           </Box>
 
-          <PriceTag amount={price} variant="h4" sx={{ mb: 2 }} />
+          <PriceTag amount={price} sx={{ fontSize: { xs: '1.75rem', md: '2rem' }, fontWeight: 600, mb: 3 }} />
 
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 1, maxWidth: '60ch' }}>
             {product.description}
           </Typography>
 
@@ -169,7 +166,7 @@ export default function ProductDetailPage() {
             <Typography variant="body2" color="text.secondary">Stok: {product.stock}</Typography>
           </Box>
 
-          {added && <Alert severity="success" sx={{ mb: 2 }}>Produk ditambahkan ke keranjang!</Alert>}
+          {added && <Alert severity="success" sx={{ mb: 2 }}>Ditambahkan ke keranjang.</Alert>}
 
           <Box className="flex gap-2">
             <Button
@@ -197,9 +194,8 @@ export default function ProductDetailPage() {
       </div>
 
       {related.length > 0 && (
-        <Box className="mt-16">
-          <Divider sx={{ mb: 6 }} />
-          <SectionHeading title="Curated Pairings" subtitle="Produk terkait dari kategori yang sama" />
+        <Box component="section" className="mt-20 md:mt-28">
+          <SectionHeading title="Cocok juga dengan ini" subtitle="Dari kategori yang sama." />
           <ProductGrid products={related} />
         </Box>
       )}

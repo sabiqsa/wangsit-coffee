@@ -7,25 +7,26 @@
 }
 
 .segment {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.03em;
-  padding: $spacing-xs $spacing-md;
-  border-radius: $radius-md;
-  border: 1px solid var(--mui-palette-divider, rgba(255, 255, 255, 0.15));
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-height: 40px;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-control;
+  border: 1px solid var(--mui-palette-divider);
   background: transparent;
   color: var(--mui-palette-text-primary);
   cursor: pointer;
   transition: border-color $transition-fast, color $transition-fast, background-color $transition-fast;
 
   &:hover {
-    border-color: var(--mui-palette-primary-main, #f2be8c);
+    border-color: var(--mui-palette-primary-main);
   }
 }
 
 .segmentActive {
-  border-color: var(--mui-palette-primary-main, #f2be8c);
-  background: var(--mui-palette-primary-main, #f2be8c);
-  color: var(--mui-palette-primary-contrastText, #482904);
+  border-color: var(--mui-palette-primary-main);
+  background: var(--mui-palette-primary-main);
+  color: var(--mui-palette-primary-contrastText);
   font-weight: 600;
 }

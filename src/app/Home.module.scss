@@ -1,0 +1,244 @@
+@use '../styles/variables' as *;
+
+// Text sitting on photography stays light in both modes; the scrim guarantees
+// contrast, so it reads from the dark palette rather than the active theme.
+$on-photo: #ece7e1; // = darkPalette.textPrimary in src/lib/tokens.ts
+$photo-scrim: rgba(19, 17, 16, 0.82); // = darkPalette.background
+
+.textLink {
+  font-weight: 600;
+  font-size: 0.975rem;
+  color: var(--mui-palette-text-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--mui-palette-divider);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color $transition-fast;
+
+  &:hover {
+    text-decoration-color: var(--mui-palette-primary-main);
+  }
+}
+
+// Hero imagery
+.heroMain {
+  aspect-ratio: 4 / 5;
+  max-height: 72dvh;
+  margin-left: auto;
+  width: 100%;
+  overflow: hidden;
+  border-radius: $radius-surface;
+  background: var(--mui-palette-background-paper);
+
+  @media (min-width: $bp-md) {
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.heroInset {
+  position: absolute;
+  left: -40px;
+  bottom: -32px;
+  width: 40%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: $radius-surface;
+  border: 6px solid var(--mui-palette-background-default);
+  box-shadow: 0 24px 48px -20px rgba(8, 5, 2, 0.5);
+
+  @media (max-width: #{$bp-md - 1px}) {
+    display: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+// Category bento
+.bento {
+  display: grid;
+  gap: $spacing-md;
+  grid-template-columns: 1fr;
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: 7fr 5fr;
+    grid-template-rows: repeat(2, minmax(240px, 1fr));
+    gap: $spacing-lg;
+  }
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: $radius-surface;
+  min-height: 220px;
+  background: var(--mui-palette-background-paper);
+  isolation: isolate;
+
+  &:focus-visible {
+    outline-offset: 4px;
+  }
+}
+
+.tileTall {
+  @media (min-width: $bp-md) {
+    grid-row: span 2;
+    min-height: 520px;
+  }
+}
+
+.tileWide {
+  min-height: 200px;
+}
+
+.tileImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  transition: transform 900ms $ease-out;
+
+  .tile:hover & {
+    transform: scale(1.05);
+  }
+}
+
+.tileScrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, $photo-scrim 0%, rgba(19, 17, 16, 0.35) 45%, transparent 75%);
+}
+
+.tileBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: $spacing-lg;
+  color: $on-photo;
+
+  @media (min-width: $bp-md) {
+    padding: $spacing-xl;
+  }
+}
+
+.tileTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+
+  .tileTall & {
+    @media (min-width: $bp-md) {
+      font-size: 2.25rem;
+    }
+  }
+}
+
+.tileArrow {
+  font-size: 1.25rem !important;
+  transition: transform $transition-normal;
+
+  .tile:hover & {
+    transform: translate(3px, -3px);
+  }
+}
+
+.tileDesc {
+  font-size: 0.925rem;
+  opacity: 0.82;
+  max-width: 36ch;
+}
+
+// Origins index
+.originPhoto {
+  aspect-ratio: 9 / 7;
+  overflow: hidden;
+  border-radius: $radius-surface;
+
+  @media (max-width: #{$bp-md - 1px}) {
+    display: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.originRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-lg;
+  padding: 28px 0;
+  border-top: 1px solid var(--mui-palette-divider);
+
+  li:last-child & {
+    border-bottom: 1px solid var(--mui-palette-divider);
+  }
+}
+
+.originName {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--mui-palette-text-primary);
+  transition: color $transition-fast, transform $transition-normal;
+
+  .originRow:hover & {
+    color: var(--mui-palette-primary-main);
+    transform: translateX(6px);
+  }
+}
+
+.originMeta {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.925rem;
+  color: var(--mui-palette-text-secondary);
+}
+
+.originArrow {
+  flex-shrink: 0;
+  color: var(--mui-palette-text-secondary);
+  transition: color $transition-fast, transform $transition-normal;
+
+  .originRow:hover & {
+    color: var(--mui-palette-primary-main);
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tileImage,
+  .originName,
+  .originArrow,
+  .tileArrow {
+    transition: none;
+  }
+}

@@ -1,36 +1,36 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
-import { Box, Badge } from '@mui/material';
-import { Storefront, Search, ShoppingBag, Person } from '@mui/icons-material';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Badge } from '@mui/material';
+import { StorefrontOutlined, Search, ShoppingBagOutlined, PersonOutlined } from '@mui/icons-material';
 import classNames from 'classnames';
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import { useAuth } from '@/hooks/useAuth';
 import styles from './MobileBottomNav.module.scss';
 
 const ITEMS = [
-  { href: '/', label: 'Shop', icon: Storefront },
+  { href: '/', label: 'Shop', icon: StorefrontOutlined },
   { href: '/products', label: 'Search', icon: Search },
-  { href: '/cart', label: 'Cart', icon: ShoppingBag },
+  { href: '/cart', label: 'Cart', icon: ShoppingBagOutlined },
 ];
 
 export default function MobileBottomNav() {
-  const router = useRouter();
   const pathname = usePathname();
   const { user } = useAuth();
   const cartCount = useAppSelector((s) => s.cart.items.reduce((acc, i) => acc + i.quantity, 0));
 
-  const profileHref = user ? '/profile' : '/auth/login';
+  const items = [...ITEMS, { href: user ? '/profile' : '/auth/login', label: 'Profil', icon: PersonOutlined }];
 
   return (
-    <Box component="nav" className={styles.bottomNav}>
-      {ITEMS.map(({ href, label, icon: Icon }) => {
-        const active = pathname === href;
+    <nav aria-label="Navigasi bawah" className={styles.bottomNav}>
+      {items.map(({ href, label, icon: Icon }) => {
+        const active = href === '/' ? pathname === '/' : pathname.startsWith(href);
         return (
-          <button
+          <Link
             key={href}
-            type="button"
-            onClick={() => router.push(href)}
+            href={href}
+            aria-current={active ? 'page' : undefined}
             className={classNames(styles.navItem, active && styles.active)}
           >
             {href === '/cart' ? (
@@ -41,17 +41,9 @@ export default function MobileBottomNav() {
               <Icon fontSize="small" />
             )}
             <span className={styles.label}>{label}</span>
-          </button>
+          </Link>
         );
       })}
-      <button
-        type="button"
-        onClick={() => router.push(profileHref)}
-        className={classNames(styles.navItem, pathname === profileHref && styles.active)}
-      >
-        <Person fontSize="small" />
-        <span className={styles.label}>Profil</span>
-      </button>
-    </Box>
+    </nav>
   );
 }

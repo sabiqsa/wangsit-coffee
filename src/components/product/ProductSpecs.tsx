@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import { Category, Inventory2, Star, LocalFireDepartment } from '@mui/icons-material';
 import { IProduct } from '@/types';
 
 interface ProductSpecsProps {
@@ -7,43 +6,28 @@ interface ProductSpecsProps {
 }
 
 export default function ProductSpecs({ product }: ProductSpecsProps) {
-  const categoryLabel = typeof product.category === 'object' ? product.category.name : '—';
-
   const specs = [
-    { icon: Category, label: 'Kategori', value: categoryLabel },
-    { icon: Inventory2, label: 'Stok', value: product.stock > 0 ? `${product.stock} tersedia` : 'Habis' },
-    { icon: Star, label: 'Rating', value: `${product.rating.toFixed(1)} / 5.0` },
-    { icon: LocalFireDepartment, label: 'Terjual', value: `${product.sold}+` },
+    { label: 'Stok', value: product.stock > 0 ? `${product.stock} tersedia` : 'Habis' },
+    { label: 'Rating', value: `${product.rating.toFixed(1)} dari 5` },
+    { label: 'Terjual', value: `${product.sold}+` },
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3 my-4">
-      {specs.map(({ icon: Icon, label, value }) => (
-        <Box
-          key={label}
-          className="flex items-center gap-2 rounded-md p-3"
-          sx={{ bgcolor: 'background.paper', border: 1, borderColor: 'divider' }}
-        >
-          <Icon sx={{ color: 'primary.main', fontSize: 20 }} />
-          <Box>
-            <Typography
-              sx={{
-                display: 'block',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.625rem',
-                letterSpacing: '0.05em',
-                textTransform: 'uppercase',
-                color: 'text.secondary',
-              }}
-            >
-              {label}
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600 }}>
-              {value}
-            </Typography>
-          </Box>
+    <Box
+      component="dl"
+      className="grid grid-cols-3 py-4"
+      sx={{ borderTop: 1, borderBottom: 1, borderColor: 'divider', mx: 0, my: 3 }}
+    >
+      {specs.map(({ label, value }, i) => (
+        <Box key={label} sx={{ pl: i === 0 ? 0 : 2, borderLeft: i === 0 ? 0 : 1, borderColor: 'divider' }}>
+          <Typography component="dt" variant="caption" color="text.secondary">
+            {label}
+          </Typography>
+          <Typography component="dd" variant="body2" className="tabular" sx={{ fontWeight: 600, m: 0, mt: 0.25 }}>
+            {value}
+          </Typography>
         </Box>
       ))}
-    </div>
+    </Box>
   );
 }

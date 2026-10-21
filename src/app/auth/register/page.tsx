@@ -9,7 +9,6 @@ import {
   Container, Card, CardContent, Typography, TextField, Button,
   Box, Alert, Link, CircularProgress, Divider,
 } from '@mui/material';
-import { Coffee } from '@mui/icons-material';
 import { createClient } from '@/lib/supabase/client';
 
 const registerSchema = z.object({
@@ -58,15 +57,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <Container maxWidth="xs" className="py-16">
+    <Container maxWidth="xs" className="py-12 md:py-20">
       <Card>
-        <CardContent sx={{ p: 4 }}>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Coffee sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
-            <Typography variant="h5" sx={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>
-              Buat Akun Baru
+        <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h4" component="h1">
+              Buat akun baru
             </Typography>
-            <Typography variant="body2" color="text.secondary">WangsitCoffee</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>Simpan alamat dan lihat riwayat pesanan di satu tempat.</Typography>
           </Box>
 
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}

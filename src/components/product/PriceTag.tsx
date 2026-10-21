@@ -9,7 +9,7 @@ export default function PriceTag({ amount, sx, ...props }: PriceTagProps) {
   return (
     <Typography
       {...props}
-      sx={{ fontWeight: 700, color: 'primary.main', ...sx }}
+      sx={{ fontWeight: 600, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.01em', color: 'text.primary', ...sx }}
     >
       {formatRupiah(amount)}
     </Typography>

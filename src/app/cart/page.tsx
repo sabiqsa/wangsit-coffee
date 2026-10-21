@@ -39,9 +39,9 @@ export default function CartPage() {
       <Container maxWidth="sm" className="py-16">
         <EmptyState
           icon={ShoppingBag}
-          title="Keranjang Kosong"
-          description="Belum ada produk di keranjang kamu."
-          action={<Button variant="contained" onClick={() => router.push('/products')}>Mulai Belanja</Button>}
+          title="Keranjang masih kosong"
+          description="Mulai dari biji kopi favoritmu atau coba sesuatu yang baru."
+          action={<Button variant="contained" onClick={() => router.push('/products')}>Mulai belanja</Button>}
         />
       </Container>
     );
@@ -49,8 +49,8 @@ export default function CartPage() {
 
   return (
     <Container maxWidth="lg" className="py-8 md:py-12">
-      <Typography variant="h4" sx={{ fontFamily: 'var(--font-display)', fontWeight: 700, mb: 4 }}>
-        Keranjang Belanja
+      <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '2.25rem', md: '3.25rem' }, mb: { xs: 4, md: 6 } }}>
+        Keranjang belanja
       </Typography>
 
       <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-8">
@@ -58,7 +58,7 @@ export default function CartPage() {
           <Box className="flex justify-between items-center mb-3">
             <Typography variant="body2" color="text.secondary">{items.length} item</Typography>
             <Button size="small" color="error" onClick={() => dispatch(clearCart())}>
-              Kosongkan Keranjang
+              Kosongkan keranjang
             </Button>
           </Box>
 
@@ -77,14 +77,14 @@ export default function CartPage() {
                         component="img"
                         src={item.product.images[0] ?? 'https://placehold.co/80x80?text=Kopi'}
                         alt={item.product.name}
-                        className="w-full aspect-square object-cover rounded"
+                        className="w-full aspect-square object-cover rounded-[10px]"
                       />
                       <Box className="col-span-2 sm:col-span-1">
                         <Typography sx={{ fontWeight: 600 }}>{item.product.name}</Typography>
                         {variantLabel && (
                           <Chip label={variantLabel} size="small" variant="outlined" sx={{ mt: 0.5 }} />
                         )}
-                        <Typography variant="body2" sx={{ mt: 0.5, fontWeight: 700, color: 'primary.main' }}>
+                        <Typography variant="body2" color="text.secondary" className="tabular" sx={{ mt: 0.5 }}>
                           {formatRupiah(price)}
                         </Typography>
                       </Box>
@@ -119,7 +119,7 @@ export default function CartPage() {
                             <Delete fontSize="small" />
                           </IconButton>
                         </Box>
-                        <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                        <Typography variant="body2" className="tabular" sx={{ fontWeight: 600 }}>
                           {formatRupiah(price * item.quantity)}
                         </Typography>
                       </Box>
@@ -145,10 +145,10 @@ export default function CartPage() {
             total={total}
           >
             <Button variant="contained" fullWidth size="large" onClick={() => router.push('/checkout')}>
-              Lanjut ke Checkout
+              Lanjut ke checkout
             </Button>
             <Button variant="text" fullWidth onClick={() => router.push('/products')} sx={{ mt: 1 }}>
-              Lanjut Belanja
+              Lanjut belanja
             </Button>
           </OrderSummary>
         </Box>

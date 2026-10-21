@@ -6,38 +6,31 @@ interface SectionHeadingProps {
   title: string;
   subtitle?: string;
   viewAllHref?: string;
+  viewAllLabel?: string;
 }
 
-export default function SectionHeading({ title, subtitle, viewAllHref }: SectionHeadingProps) {
+export default function SectionHeading({ title, subtitle, viewAllHref, viewAllLabel = 'Lihat semua' }: SectionHeadingProps) {
   return (
-    <Box className="flex items-end justify-between gap-4 mb-6 md:mb-8">
+    <Box className="flex items-end justify-between gap-6 mb-8 md:mb-10">
       <Box>
-        <Typography
-          variant="h4"
-          sx={{ fontFamily: 'var(--font-display)', fontWeight: 700, letterSpacing: '-0.01em' }}
-        >
+        <Typography variant="h3" component="h2" sx={{ fontSize: { xs: '1.75rem', md: '2.5rem' } }}>
           {title}
         </Typography>
         {subtitle && (
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+          <Typography variant="body1" color="text.secondary" sx={{ mt: 1, maxWidth: '52ch' }}>
             {subtitle}
           </Typography>
         )}
       </Box>
       {viewAllHref && (
-        <Link href={viewAllHref} className="shrink-0">
+        <Link href={viewAllHref} className="shrink-0 group">
           <Box
-            className="flex items-center gap-1"
-            sx={{
-              color: 'primary.main',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
-            }}
+            component="span"
+            className="inline-flex items-center gap-1"
+            sx={{ fontWeight: 600, fontSize: '0.9rem', color: 'text.primary', '&:hover': { color: 'primary.main' } }}
           >
-            View All
-            <ArrowForward sx={{ fontSize: 16 }} />
+            {viewAllLabel}
+            <ArrowForward sx={{ fontSize: 18 }} className="transition-transform duration-200 group-hover:translate-x-0.5" />
           </Box>
         </Link>
       )}

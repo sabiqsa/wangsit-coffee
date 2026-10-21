@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import {
   Container, Typography, Box, InputBase, Select, MenuItem,
-  FormControl, Pagination, Skeleton, Chip, Button, Radio,
+  FormControl, Pagination, Skeleton, Chip, Button,
 } from '@mui/material';
 import { Search, SearchOff } from '@mui/icons-material';
 import ProductGrid from '@/components/product/ProductGrid';
@@ -83,17 +83,14 @@ function ProductsContent() {
 
   return (
     <Container maxWidth="lg" className="py-8 md:py-12">
-      <Typography
-        variant="h4"
-        sx={{ fontFamily: 'var(--font-display)', fontWeight: 700, mb: 1 }}
-      >
-        {selectedCategory ? selectedCategory.name : 'Semua Produk'}
+      <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '2.25rem', md: '3.25rem' }, mb: 1 }}>
+        {selectedCategory ? selectedCategory.name : 'Semua produk'}
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-        {loading ? 'Memuat...' : `${total} produk ditemukan`}
+      <Typography variant="body2" color="text.secondary" className="tabular" sx={{ mb: { xs: 4, md: 6 } }} aria-live="polite">
+        {loading ? 'Memuat produk...' : `${total} produk`}
       </Typography>
 
-      <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 md:gap-12">
         {/* Filter sidebar */}
         <Box component="aside" className="flex flex-col gap-6">
           <Box
@@ -103,12 +100,13 @@ function ProductsContent() {
             <InputBase
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Cari produk..."
+              placeholder="Cari produk"
+              inputProps={{ 'aria-label': 'Cari produk' }}
               startAdornment={<Search fontSize="small" sx={{ mr: 1, color: 'text.secondary' }} />}
               sx={{
                 width: '100%',
                 px: 1.5,
-                py: 0.75,
+                height: 42,
                 borderRadius: 1,
                 bgcolor: 'background.paper',
                 border: 1,
@@ -119,34 +117,46 @@ function ProductsContent() {
           </Box>
 
           <Box>
-            <Typography variant="overline" sx={{ display: 'block', color: 'text.secondary', mb: 1 }}>
+            <Typography variant="subtitle2" component="h2" sx={{ mb: 1.5 }}>
               Kategori
             </Typography>
-            <Box className="flex flex-col gap-0.5">
-              <Box
-                onClick={() => updateParam('category', '')}
-                className="flex items-center gap-1 cursor-pointer"
-                sx={{ color: !category ? 'primary.main' : 'text.primary' }}
-              >
-                <Radio checked={!category} size="small" sx={{ p: 0.5 }} />
-                <Typography variant="body2">Semua</Typography>
-              </Box>
-              {categories.map((c) => (
-                <Box
-                  key={c._id}
-                  onClick={() => updateParam('category', c.slug)}
-                  className="flex items-center gap-1 cursor-pointer"
-                  sx={{ color: category === c.slug ? 'primary.main' : 'text.primary' }}
-                >
-                  <Radio checked={category === c.slug} size="small" sx={{ p: 0.5 }} />
-                  <Typography variant="body2">{c.name}</Typography>
-                </Box>
-              ))}
+            <Box className="flex flex-row flex-wrap md:flex-col gap-1.5" role="radiogroup" aria-label="Kategori">
+              {[{ slug: '', name: 'Semua' }, ...categories].map((c) => {
+                const active = category === c.slug;
+                return (
+                  <Box
+                    key={c.slug || 'all'}
+                    component="button"
+                    type="button"
+                    role="radio"
+                    aria-checked={active}
+                    onClick={() => updateParam('category', c.slug)}
+                    sx={{
+                      textAlign: 'left',
+                      font: 'inherit',
+                      fontSize: '0.9rem',
+                      fontWeight: active ? 600 : 500,
+                      cursor: 'pointer',
+                      px: 1.5,
+                      py: 1,
+                      borderRadius: 1,
+                      border: 1,
+                      borderColor: active ? 'primary.main' : { xs: 'divider', md: 'transparent' },
+                      bgcolor: active ? 'color-mix(in srgb, var(--mui-palette-primary-main) 14%, transparent)' : 'transparent',
+                      color: active ? 'text.primary' : 'text.secondary',
+                      transition: 'background-color 160ms, color 160ms, border-color 160ms',
+                      '&:hover': { color: 'text.primary' },
+                    }}
+                  >
+                    {c.name}
+                  </Box>
+                );
+              })}
             </Box>
           </Box>
 
           <Box>
-            <Typography variant="overline" sx={{ display: 'block', color: 'text.secondary', mb: 1 }}>
+            <Typography variant="subtitle2" component="h2" sx={{ mb: 1.5 }}>
               Urutkan
             </Typography>
             <FormControl size="small" fullWidth>
@@ -171,9 +181,14 @@ function ProductsContent() {
         {/* Product grid */}
         <Box>
           {loading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <Skeleton key={i} variant="rectangular" sx={{ borderRadius: 2, aspectRatio: '3/4' }} />
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10" aria-hidden="true">
+              {Array.from({ length: 9 }).map((_, i) => (
+                <div key={i}>
+                  <Skeleton variant="rectangular" sx={{ aspectRatio: '4/5', height: 'auto' }} />
+                  <Skeleton variant="text" width="40%" sx={{ mt: 1.5 }} />
+                  <Skeleton variant="text" width="80%" />
+                  <Skeleton variant="text" width="50%" />
+                </div>
               ))}
             </div>
           ) : products.length === 0 ? (
@@ -181,14 +196,14 @@ function ProductsContent() {
               icon={SearchOff}
               title="Produk tidak ditemukan"
               description="Coba ubah kata kunci pencarian atau filter kategori."
-              action={<Button variant="outlined" onClick={() => router.push('/products')}>Reset Filter</Button>}
+              action={<Button variant="outlined" onClick={() => router.push('/products')}>Reset filter</Button>}
             />
           ) : (
-            <ProductGrid products={products} />
+            <ProductGrid products={products} columns={3} />
           )}
 
           {totalPages > 1 && (
-            <Box className="flex justify-center mt-8">
+            <Box className="flex justify-center mt-12">
               <Pagination
                 count={totalPages}
                 page={page}

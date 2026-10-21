@@ -15,18 +15,17 @@ export default function VariantSelector({ label, options, selected, onSelect }: 
   if (options.length === 0) return null;
 
   return (
-    <Box sx={{ mb: 2 }}>
-      <Typography
-        variant="overline"
-        sx={{ display: 'block', color: 'text.secondary', mb: 1 }}
-      >
+    <Box sx={{ mb: 3 }}>
+      <Typography variant="subtitle2" sx={{ mb: 1.25 }}>
         {label}
       </Typography>
-      <Box className={styles.group}>
+      <Box className={styles.group} role="radiogroup" aria-label={label}>
         {options.map((option) => (
           <button
             key={option}
             type="button"
+            role="radio"
+            aria-checked={option === selected}
             onClick={() => onSelect(option)}
             className={classNames(styles.segment, option === selected && styles.segmentActive)}
           >
