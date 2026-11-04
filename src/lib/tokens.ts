@@ -47,19 +47,9 @@ export const typography = {
 export const radius = {
   control: 10,
   surface: 16,
-  full: 9999,
-} as const;
-
-export const spacing = {
-  base: 4,
-  gutterDesktop: 24,
-  marginDesktop: 64,
-  gutterMobile: 16,
-  marginMobile: 20,
 } as const;
 
 export const motion = {
   ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
   fast: '160ms',
-  normal: '280ms',
 } as const;

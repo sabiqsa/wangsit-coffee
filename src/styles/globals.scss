@@ -10,7 +10,6 @@
   // Declared here (not only in Tailwind @theme) so they exist even when no
   // Tailwind utility references them and the variable gets pruned.
   --font-display: var(--font-bricolage), sans-serif;
-  --font-body: var(--font-geist), sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 }
 

@@ -1,17 +1,8 @@
 @import "tailwindcss";
 
-/* Fonts and shape mirror src/lib/tokens.ts. Colors are NOT duplicated here:
+/* Fonts mirror src/lib/tokens.ts. Colors are NOT duplicated here:
    use var(--mui-palette-*) so both light and dark mode stay in sync. */
 @theme {
   --font-display: var(--font-bricolage), sans-serif;
-  --font-body: var(--font-geist), sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
-
-  --radius-control: 10px;
-  --radius-surface: 16px;
-
-  --spacing-gutter-desktop: 24px;
-  --spacing-margin-desktop: 64px;
-  --spacing-gutter-mobile: 16px;
-  --spacing-margin-mobile: 20px;
 }
