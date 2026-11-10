@@ -145,7 +145,7 @@ export default function CartPage() {
             total={total}
           >
             <Button variant="contained" fullWidth size="large" onClick={() => router.push('/checkout')}>
-              Lanjut ke checkout
+              Lanjut ke pembayaran
             </Button>
             <Button variant="text" fullWidth onClick={() => router.push('/products')} sx={{ mt: 1 }}>
               Lanjut belanja

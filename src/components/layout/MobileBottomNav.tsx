@@ -10,9 +10,9 @@ import { useAuth } from '@/hooks/useAuth';
 import styles from './MobileBottomNav.module.scss';
 
 const ITEMS = [
-  { href: '/', label: 'Shop', icon: StorefrontOutlined },
-  { href: '/products', label: 'Search', icon: Search },
-  { href: '/cart', label: 'Cart', icon: ShoppingBagOutlined },
+  { href: '/', label: 'Beranda', icon: StorefrontOutlined },
+  { href: '/products', label: 'Cari', icon: Search },
+  { href: '/cart', label: 'Keranjang', icon: ShoppingBagOutlined },
 ];
 
 export default function MobileBottomNav() {

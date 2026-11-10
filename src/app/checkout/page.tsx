@@ -68,8 +68,8 @@ export default function CheckoutPage() {
   if (!user) {
     return (
       <Container maxWidth="sm" className="py-16 text-center">
-        <Alert severity="warning" sx={{ mb: 2 }}>Anda harus login untuk melanjutkan checkout.</Alert>
-        <Button variant="contained" onClick={() => router.push('/auth/login?callbackUrl=/checkout')}>Login</Button>
+        <Alert severity="warning" sx={{ mb: 2 }}>Anda harus masuk untuk melanjutkan pembayaran.</Alert>
+        <Button variant="contained" onClick={() => router.push('/auth/login?callbackUrl=/checkout')}>Masuk</Button>
       </Container>
     );
   }
@@ -131,7 +131,7 @@ export default function CheckoutPage() {
       />
       <Container maxWidth="lg" className="py-8 md:py-12">
         <Typography variant="h4" sx={{ fontFamily: 'var(--font-display)', fontWeight: 700, mb: 1 }}>
-          Secure Checkout
+          Selesaikan pesanan
         </Typography>
         <CheckoutStepper current="payment" />
 

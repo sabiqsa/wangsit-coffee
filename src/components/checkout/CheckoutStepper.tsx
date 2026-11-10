@@ -6,9 +6,9 @@ import styles from './CheckoutStepper.module.scss';
 export type CheckoutStep = 'shipping' | 'payment' | 'review';
 
 const STEPS: { id: CheckoutStep; label: string }[] = [
-  { id: 'shipping', label: 'Shipping' },
-  { id: 'payment', label: 'Payment' },
-  { id: 'review', label: 'Review' },
+  { id: 'shipping', label: 'Pengiriman' },
+  { id: 'payment', label: 'Pembayaran' },
+  { id: 'review', label: 'Konfirmasi' },
 ];
 
 export default function CheckoutStepper({ current }: { current: CheckoutStep }) {

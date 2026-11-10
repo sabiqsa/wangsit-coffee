@@ -88,7 +88,7 @@ function ProfileContent() {
                   <Typography sx={{ fontWeight: 500 }}>{user?.email}</Typography>
                 </Box>
                 <Box>
-                  <Typography variant="caption" color="text.secondary">Role</Typography>
+                  <Typography variant="caption" color="text.secondary">Peran</Typography>
                   <Typography sx={{ fontWeight: 500 }}>{profile?.role ?? 'user'}</Typography>
                 </Box>
               </Box>
